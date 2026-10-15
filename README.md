@@ -55,5 +55,7 @@ Depend on mod id `mds_api` and check `MdsApi.isLoaded()` before calling into the
 
 ## License
 
-See [LICENSE](LICENSE). All rights reserved. Modpacks are welcome; redistributing the API as your
-own work, or republishing it, is not.
+MIT. See [LICENSE](LICENSE). Use it, fork it, ship it inside your own mods.
+
+The Modern Damage System mod itself is a separate project and keeps its own source-available
+license, which is stricter. That license does not apply to this API.
