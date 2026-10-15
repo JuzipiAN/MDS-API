@@ -1,46 +1,59 @@
-# MDS API / Modern Damage System API
+# MDS-API
 
-Minecraft Fabric API library for the Modern Damage System mod.
-现代化伤害系统模组的 API 库。
+Public API for [Modern Damage System](https://github.com/JuzipiAN/modern-damage-system).
+It lets other mods read and change MDS damage, enchantment, config and HUD data, and it keeps
+working when Modern Damage System itself is not installed.
 
----
+Both loader builds live in this repo:
 
-## 基本信息 / Information
+```
+fabric/    Fabric build of the API. 7 classes under com/juzipi/criticalhits/api,
+           plus the mod metadata.
+neoforge/  NeoForge build of the API. A complete Gradle project you can build on its own.
+```
 
-- **版本 / Version:** 1.1.0
-- **MC版本 / MC Version:** 26.2 Fabric
-- **主mod / Main Mod:** https://modrinth.com/mod/modern-damage-system
-- **作者 / Author:** Juzipi_AN
+## Versions
 
----
+| Loader | Version | Minecraft | Jar |
+|---|---|---|---|
+| Fabric | 1.1.0 | 26.2 | `mds-api-1.1.0-fabric-26.2.jar` |
+| NeoForge | 1.1.0 | 26.2 | `mds-api-neoforge-26.2-1.1.0.jar` |
 
-## 功能 / Features
+Both jars are attached to the [releases](../../releases) page, together with their sources jars.
 
-为开发者提供以下接口：
-- 伤害计算 API（暴击率、暴击伤害、独立乘区）
-- 附魔查询 API（23种MDS附魔统一查询）
-- GUI 工具 API
-- 配置管理 API
-- 客户端 API
+## What's in the API
 
----
+| Class | Purpose |
+|---|---|
+| `MdsApi` | Entry point. Reports whether MDS is present and hands out the other facades. |
+| `MdsDamageApi` | Damage numbers, crit rolls, armor penetration, and the combat hooks. |
+| `MdsEnchantmentApi` | Enchantment ids, levels, and the per-level scaling values. |
+| `MdsConfigApi` | Read and write MDS config values at runtime. |
+| `MdsGuiApi` | HUD data other mods can display or extend. |
+| `MdsApiClient` | Client-side helpers. Safe to load on a server. |
+| `MdsApiMain` | Loader bootstrap. |
 
-## 使用方式 / Usage
+Everything degrades gracefully: if Modern Damage System isn't installed, the API returns its
+documented fallback values instead of throwing.
 
-在你的 mod 中引用此 API，即可使用 Modern Damage System 的伤害计算、附魔查询等接口。
+## Building the NeoForge build
 
-详细文档请参考主mod的 Modrinth 页面。
+```bash
+cd neoforge
+./gradlew build
+```
 
----
+Output lands in `neoforge/build/libs`. Requires Java 25.
 
-## 许可证 / License
+The Fabric build is currently produced by a `buildApiJar` task inside the main mod's Fabric
+project, so `fabric/` here holds the sources and metadata rather than a standalone Gradle setup.
 
-本项目基于 **MIT License** 开源。
+## Using it
 
-You are free to use, modify, and distribute this API in both open-source and commercial projects.
+Add the jar to your development dependencies, or drop it in `mods` alongside Modern Damage System.
+Depend on mod id `mds_api` and check `MdsApi.isLoaded()` before calling into the facades.
 
----
+## License
 
-## 联系方式 / Contact
-
-- **邮箱 / Email:** ngdgsls151231@outlook.com
+See [LICENSE](LICENSE). All rights reserved. Modpacks are welcome; redistributing the API as your
+own work, or republishing it, is not.

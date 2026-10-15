@@ -1,0 +1,59 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.143'
+}
+
+version = '1.1.0'
+group = 'com.juzipi.criticalhits'
+
+base {
+    archivesName = 'mds-api-neoforge-26.2'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+neoForge {
+    version = '26.2.0.85'
+
+    runs {
+        configureEach {
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'mds_api'
+        }
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+    }
+
+    mods {
+        'mds_api' {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
+
+jar {
+    manifest {
+        attributes(
+            'Specification-Title': 'MDS API',
+            'Specification-Version': '1.1.0',
+            'Implementation-Title': 'MDS API NeoForge',
+            'Implementation-Version': '1.1.0-neoforge',
+            'Implementation-Vendor': 'Juzipi_AN'
+        )
+    }
+}

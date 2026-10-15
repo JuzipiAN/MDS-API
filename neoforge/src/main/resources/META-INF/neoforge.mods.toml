@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="MIT"
+
+[[mods]]
+modId="mds_api"
+version="1.1.0"
+displayName="MDS API"
+authors="Juzipi_AN"
+description='''
+Modern Damage System API - A general-purpose API library for Minecraft 26.2 NeoForge.
+Provides standardized interfaces for damage calculation, enchantment queries, GUI utilities, and configuration management.
+MIT License - free to use, modify, and distribute.
+'''
+
+[[dependencies.mds_api]]
+    modId="neoforge"
+    type="required"
+    versionRange="[26.2.0.85,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.mds_api]]
+    modId="minecraft"
+    type="required"
+    versionRange="[26.2,)"
+    ordering="NONE"
+    side="BOTH"
