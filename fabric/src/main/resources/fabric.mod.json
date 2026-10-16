@@ -1,33 +1,27 @@
 {
   "schemaVersion": 1,
   "id": "mds-api",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "name": "MDS API",
-  "description": "Modern Damage System API - 为Minecraft 26.2 Fabric提供伤害计算、附魔查询、GUI工具、配置管理等通用API。MIT开源，欢迎其他mod开发者使用。",
+  "description": "Modern Damage System 的公共 API。其他模组可以通过它读取和修改 MDS 的伤害、附魔、配置与 HUD 数据，在不安装主模组时也能安全调用。",
   "authors": [
     "Juzipi_AN"
   ],
-  "contact": {
-    "homepage": "https://modrinth.com/mod/mds-api",
-    "issues": "https://modrinth.com/mod/mds-api/issues",
-    "sources": "https://github.com/JuzipiAN/mds-api",
-    "email": "ngdgsls151231@outlook.com"
-  },
   "license": "MIT",
-  "icon": "assets/mds-api/textures/item/mds_api_icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       "com.juzipi.criticalhits.api.MdsApiMain"
-    ],
-    "client": [
-      "com.juzipi.criticalhits.api.MdsApiClient"
     ]
   },
   "depends": {
-    "fabricloader": ">=0.19.3",
-    "minecraft": "~26.2",
-    "java": ">=25",
-    "fabric-api": "*"
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25"
+  },
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/modern-damage-system",
+    "sources": "https://github.com/JuzipiAN/MDS-API",
+    "issues": "https://github.com/JuzipiAN/MDS-API/issues"
   }
 }

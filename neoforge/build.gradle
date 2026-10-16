@@ -1,59 +1,42 @@
 plugins {
-    id 'net.neoforged.moddev' version '2.0.143'
+    id 'java'
 }
 
-version = '1.1.0'
+version = '1.2.0'
 group = 'com.juzipi.criticalhits'
 
 base {
-    archivesName = 'mds-api-neoforge-26.2'
+    archivesName = 'mds-api-neoforge-26.3'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
-
-neoForge {
-    version = '26.2.0.85'
-
-    runs {
-        configureEach {
-            systemProperty 'neoforge.enabledGameTestNamespaces', 'mds_api'
-        }
-        client {
-            client()
-        }
-        server {
-            server()
-            programArgument '--nogui'
-        }
-    }
-
-    mods {
-        'mds_api' {
-            sourceSet sourceSets.main
-        }
-    }
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    withSourcesJar()
 }
 
-repositories {
-    mavenCentral()
-}
+// Plan B：不用 moddev（maven.neoforged.net 连不上），直接用实例里的本地 jar
+def MCDIR = 'C:/Users/Default/AppData/Roaming/.minecraft'
+def INST  = MCDIR + '/versions/26.3-NeoForge_26.3.0.83'
+
+repositories { mavenCentral() }
 
 dependencies {
+    implementation files(INST + '/26.3-NeoForge_26.3.0.83.jar')
+    implementation fileTree(dir: MCDIR + '/libraries', include: ['**/*.jar'])
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
     options.release = 25
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-nowarn']
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filteringCharset = 'UTF-8'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar {
-    manifest {
-        attributes(
-            'Specification-Title': 'MDS API',
-            'Specification-Version': '1.1.0',
-            'Implementation-Title': 'MDS API NeoForge',
-            'Implementation-Version': '1.1.0-neoforge',
-            'Implementation-Vendor': 'Juzipi_AN'
-        )
-    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
